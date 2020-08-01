@@ -1,0 +1,30 @@
+<html>
+
+<head>
+	<title>Events - Jump Start Vue.js</title>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<div id="main">
+        <!-- @ is the same than v-on:-->
+        <button @mousedown="updateStatus" @contextmenu.prevent="">Toggle me!</button>
+        <p>{{ status }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script>
+        new Vue({
+            el: '#main',
+            data: {
+                status: ""
+            },
+            methods: {
+                updateStatus(event) {
+                    const buttons = ['left', 'middle', 'right'];
+                    this.status = `You have clicked the ${buttons[event.button]} button.`};
+                }
+            }
+        });
+    </script>
+</body>
+</html>
