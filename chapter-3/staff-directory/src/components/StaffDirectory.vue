@@ -36,12 +36,30 @@
 <script>
 export default {
   name: 'StaffDirectory',
+  //props: ['src'], props declare a set of properties that will be passed to our component, they will be available with this, like any other...
+  //Better way to pass properties and make custom or simple validation is the following...
+  props: {
+    myString: String,
+    myNumber: Number,
+    myBoolean: Boolean,
+    myArray: Array,
+    myObject: Object,
+    isAdminUser: {
+      type: Boolean,
+      required: true,
+    },
+    user: {
+      validate(user) {
+        return ['admin', 'editor', 'author'].includes(user.role);
+      }
+    }
+  },
   data() {
     return {
       filterBy: "",
       sortBy: 'department',
       employees: [
-        {
+         {
           "firstName": "amelia",
           "lastName": "austin",
           "photoUrl": "https://randomuser.me/api/portraits/thumb/women/9.jpg",
@@ -84,6 +102,14 @@ export default {
       ]
     }
   },
+  
+  /* --------- Lifecycle methods ------------------------
+  created() { //As soon the component is created, created() method will be fired
+    fetch('https://randomuser.me/api/?nat=us,dk,fr,gb&results=5')
+      .then(response => response.json())
+      .then(json => this.employees = json.results);
+  },
+   ---------------------------------------------------- */
   computed: {
     sortedEmployees() {
       return this.employees.filter(
